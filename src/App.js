@@ -9,6 +9,7 @@ function App() {
     <BrowserRouter>
       <Routes>
         <Route path="/" element={<FormComponent/>} />
+        <Route path="/site/:id" element={<FormComponent/>} />
         <Route path="*" element={<ErrorPage/>} />
       </Routes>
     </BrowserRouter>

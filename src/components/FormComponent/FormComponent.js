@@ -3,6 +3,7 @@ import { Col, Row, Container, Card, Form, Button } from "react-bootstrap";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faSave, faX } from "@fortawesome/free-solid-svg-icons";
 import "./FormComponent.scss";
+import {useParams} from "react-router-dom";
 
 const FormComponent = () => {
   const [siteInfo, setSiteInfo] = useState({
@@ -16,7 +17,9 @@ const FormComponent = () => {
 
   const [auditLogs, setAuditLogs] = useState([]);
 
-  const [siteId, setSiteId] = useState(1);
+  const {id = 1} = useParams();
+
+  const [siteId, setSiteId] = useState(id);
 
   useEffect(() => {
     getSiteInfo();
@@ -36,8 +39,14 @@ const FormComponent = () => {
         const data = await response.json();
 
         if (data.status === "success") {
-          setSiteDetails(data.data.siteData);
+
+          if(Object.keys(data.data.siteData).length > 0){
+            setSiteDetails(data.data.siteData);
+
+          }
+
           setAuditLogs(data.data.siteLogs);
+          
 
           console.log("success");
         } else {
